@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ target_user.username }}님의 프로필 (관리자 뷰){% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/profile_admin.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="admin-controls-top">
+        <div class="admin-controls">
+            <p>관리자 ({{ user.username }})로 로그인됨</p>
+            <div class="button-group">
+                <a href="{% url 'main' %}" class="btn">메인으로</a>
+                <a href="{% url 'profile' %}" class="btn">관리자 페이지로</a>
+                <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-logout">로그아웃</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <h1>🖼 **{{ target_user.username }}** 님이 생성한 이미지</h1>
+    <hr>
+    
+    <div class="image-gallery-container">
+        {% for image in images %}
+            <div class="image-item-card">
+                <img src="{{ image.image_url }}" alt="생성 이미지" class="generated-image">
+                <div class="image-details">
+                    <p><strong>프롬프트:</strong> {{ image.prompt }}</p>
+                    <p><strong>생성일:</strong> {{ image.created_at|date:"Y.m.d H:i" }}</p>
+                </div>
+            </div>
+            {% if not forloop.last %}<hr class="card-separator">{% endif %} 
+        {% empty %}
+            <p>이 유저는 아직 생성한 이미지가 없습니다.</p>
+        {% endfor %}
+    </div>
+
+{% endblock %}

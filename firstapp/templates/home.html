@@ -1,0 +1,67 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
+{% endblock %}
+
+{% block content %}
+    <header class="section-hero">
+        <h1>간편하게 AI로 완성하는<br>주류 광고 이미지</h1>
+        {% if user.is_authenticated %}
+            <a href="{% url 'main' %}" class="hero-button" style="text-decoration: none; display: inline-block; line-height: normal;">
+                지금 바로 생성하기
+            </a>
+        {% else %}
+            <a href="{% url 'login' %}" class="hero-button" style="text-decoration: none; display: inline-block; line-height: normal;">
+                지금 바로 생성하기
+            </a>
+        {% endif %}
+    </header>
+
+    <section class="section-intro">
+        <p><strong>비싼 비용</strong>과 <strong>오랜 시간</strong>이 드는 광고 촬영은 이제 그만.<br>
+        AI가 당신의 제품을 위한 완벽한 광고 이미지를 <strong>즉시 생성</strong>합니다.</p>
+    </section>
+
+    <section class="section-process">
+        <h2>놀랍도록 간단한 3단계 프로세스</h2>
+        <div class="process-list">
+            <div class="process-item">
+                <div class="process-image-placeholder">설명 이미지</div>
+                <div class="process-text">
+                    <h3>1. 이미지 선택</h3>
+                    <p>광고할 제품의 이미지를 선택합니다.</p>
+                </div>
+            </div>
+            <div class="process-item">
+                <div class="process-image-placeholder">설명 이미지</div>
+                <div class="process-text">
+                    <h3>2. 스타일 선택</h3>
+                    <p>만들고 싶은 광고의 스타일을 선택합니다.</p>
+                </div>
+            </div>
+            <div class="process-item">
+                <div class="process-image-placeholder">설명 이미지</div>
+                <div class="process-text">
+                    <h3>3. 이미지 생성</h3>
+                    <p>AI가 수십 초 내에 여러 가지 광고 시안을 생성합니다.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gallery-section">
+        <h2 class="gallery-heading">여러분이 원하던 광고를<br>지금 당장 만들어보세요</h2>
+
+        <div class="gallery-background-grid">
+            <div class="bg-item"><img src="{% static 'images/prod_1.jpg' %}" alt="제품 이미지 1"></div>
+            <div class="bg-item"><img src="{% static 'images/prod_2.jpg' %}" alt="제품 이미지 2"></div>
+            <div class="bg-item"><img src="{% static 'images/prod_3.jpg' %}" alt="제품 이미지 3"></div>
+            <div class="bg-item"><img src="{% static 'images/prod_4.jpg' %}" alt="제품 이미지 4"></div>
+            <div class="bg-item"><img src="{% static 'images/prod_5.jpg' %}" alt="제품 이미지 5"></div>
+            </div>
+    </section>
+
+    <script src="{% static 'js/home.js' %}"></script>
+{% endblock %}

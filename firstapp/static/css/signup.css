@@ -1,0 +1,93 @@
+/* signup.css */
+
+/* 1. 포장지 (Wrapper): 화면 전체를 덮고 중앙 정렬 담당 */
+.signup-container {
+    width: 100%;
+    min-height: calc(100vh - 40px); /* 화면 높이 꽉 채움 */
+    
+    display: flex;           /* 플렉스 박스 사용 */
+    justify-content: center; /* 가로 중앙 정렬 */
+    align-items: center;     /* 세로 중앙 정렬 */
+    
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* 2. 카드 (Card): 하얀색 박스 디자인 담당 */
+.signup-card {
+    width: 100%;
+    max-width: 450px; /* 카드의 최대 너비 */
+    
+    background-color: #ffffff; /* 하얀 배경 */
+    border-radius: 20px;       /* 둥근 모서리 */
+    padding: 40px 30px;        /* 내부 여백 */
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05); /* 그림자 */
+    
+    text-align: left; /* 텍스트 정렬 */
+}
+
+/* 제목 스타일 */
+.signup-card h2 {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #333;
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+/* 폼 스타일 */
+.signup-form p {
+    margin-bottom: 15px;
+}
+
+/* 입력창 스타일 */
+.signup-form input[type="text"],
+.signup-form input[type="password"],
+.signup-form input[type="email"] {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    background-color: #f0f0f0;
+    border-radius: 8px;
+    font-size: 0.95rem;
+    box-sizing: border-box;
+    margin-top: 5px;
+}
+
+.signup-form input:focus {
+    outline: none;
+    box-shadow: 0 0 0 2px #333;
+}
+
+/* 버튼 스타일 */
+.submit-btn {
+    width: 100%;
+    padding: 14px;
+    margin-top: 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.submit-btn:hover {
+    background-color: #000;
+}
+
+/* 도움말 텍스트 */
+.helptext {
+    font-size: 0.8rem;
+    color: #888;
+    display: block;
+    margin-top: 4px;
+}
+
+ul {
+    padding-left: 20px;
+    font-size: 0.85rem;
+    color: #666;
+}

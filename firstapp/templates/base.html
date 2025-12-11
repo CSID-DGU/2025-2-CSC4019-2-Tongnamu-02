@@ -1,0 +1,97 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link rel="stylesheet" href="{% static 'css/sidebar.css' %}">
+    
+    {% block extra_css %}
+    {% endblock %}
+    
+    <title>My Project</title>
+</head>
+<body>
+
+    <div id="app-container">
+
+        <nav id="sidebar">
+        <button id="menu-toggle-btn">
+          <span>☰</span>
+        </button>
+
+        <div class="menu-top">
+          <ul>
+            <li>
+              <a href="{% url 'home' %}">
+                <span class="nav-text">홈</span>
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'main' %}">
+                <span class="nav-text">이미지 생성</span>
+              </a>
+            </li>
+            {% if user.is_authenticated %}
+                <li>
+                    <a href="{% url 'analysis' %}">
+                        <span class="nav-text">이미지 분석</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'editing' %}">
+                        <span class="nav-text">이미지 편집</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{% url 'video' %}">
+                        <span class="nav-text">영상 생성</span>
+                    </a>
+                </li>
+            {% endif %}
+          </ul>
+        </div>
+
+        <div class="menu-bottom">
+          <ul>
+            {% if user.is_authenticated %}
+            <li>
+              <a href="{% url 'profile' %}">
+                <span class="nav-text">Profile</span>
+              </a>
+            </li>
+            <li>
+              <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                  {% csrf_token %}
+                  <button type="submit" class="logout-btn">
+                      <span class="nav-text">Logout</span> 
+                  </button>
+              </form>
+            </li>
+            {% else %}
+            <li>
+              <a href="{% url 'login' %}">
+                <span class="nav-text">Login</span> 
+              </a>
+            </li>
+            <li>
+              <a href="{% url 'signup' %}">
+                <span class="nav-text">Sign Up</span> 
+              </a>
+            </li>
+            {% endif %}
+          </ul>
+        </div>
+        </nav>
+
+        <main id="main-content">
+        {% block content %}
+        {% endblock %}
+        </main>
+
+    </div>
+
+        <script src="{% static 'js/sidebar.js' %}"></script>
+</body>
+</html>

@@ -1,1 +1,5 @@
-".env" 
+.env
+capstondesign/.env
+myvenv/
+db.sqlite3
+__pycache__/

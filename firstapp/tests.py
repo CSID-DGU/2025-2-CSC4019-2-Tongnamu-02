@@ -5,7 +5,7 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
-client = replicate.Client(api_token="")
+client = replicate.Client(api_token="your_token")
 
 output = client.run(
     "black-forest-labs/flux-kontext-pro",

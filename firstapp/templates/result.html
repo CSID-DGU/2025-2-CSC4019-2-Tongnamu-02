@@ -1,0 +1,111 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/result.css' %}">
+{% endblock %}
+
+{% block title %}생성 결과 - My Project{% endblock %}
+
+{% block content %}
+<div class="results-container">
+    <div class="results-card">
+        <div class="card-header">
+            <h2>이미지 생성 결과</h2>
+        </div>
+        
+        <div class="content-wrapper">
+            
+            <div class="image-section">
+                <div class="image-display-area">
+                    {% if image_urls %}
+                        <img src="{{ image_urls.0 }}" id="main-image" alt="생성된 메인 이미지">
+                    {% endif %}
+
+                    {% if image_urls|length > 1 %}
+                    <div class="thumbnail-overlay" id="thumbnail-container">
+                        {% for url in image_urls %}
+                            <div class="thumb-item {% if forloop.first %}active{% endif %}" 
+                                 data-src="{{ url }}"> <img src="{{ url }}" alt="썸네일">
+                            </div>
+                        {% endfor %}
+                    </div>
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="text-section">
+                <h3>추천 문구</h3>
+                <div class="text-box">
+                    {% if word_urls %}
+                        {% for sentence in word_urls %}
+                            <p>{{ sentence }}</p>
+                        {% endfor %}
+                    {% else %}
+                        <p>추천 문구가 없습니다.</p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+
+        <div class="card-footer">
+            
+            <div class="center-btn-group">
+                {% if image_urls %}
+                <a href="{{ image_urls.0 }}" 
+                   download="generated_image.png" 
+                   id="download-link" 
+                   class="btn-download"
+                   title="이미지 다운로드">
+                   <span class="icon">⬇️</span> 이미지 다운로드
+                </a>
+                {% endif %}
+            </div>
+
+            <div class="right-icon-group">
+                <button class="btn-icon" title="히스토리 (준비 중)" disabled>
+                    <span class="icon-gallery">🖼️</span>
+                </button>
+
+                <a href="{% url 'main' %}?product_type={{ original_settings.product_type|urlencode }}&theme={{ original_settings.theme|urlencode }}&mood={{ original_settings.mood|urlencode }}&placement={{ original_settings.placement|urlencode }}&prompt={{ original_settings.prompt|urlencode }}&extra_requirements={{ original_settings.extra_requirements|urlencode }}&model={{ original_settings.model|urlencode }}&aspect_ratio={{ original_settings.aspect_ratio|urlencode }}&count={{ original_settings.count|urlencode }}" 
+                   class="btn-icon" 
+                   title="설정 유지하고 돌아가기">
+                    <span class="icon-undo">🔄</span>
+                </a>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', () => {
+    const mainImage = document.getElementById('main-image');
+    const downloadLink = document.getElementById('download-link');
+    const thumbnailContainer = document.getElementById('thumbnail-container'); // 이제 HTML에 ID가 존재함
+
+    if (thumbnailContainer) {
+        thumbnailContainer.addEventListener('click', (e) => {
+            // 클릭된 요소가 .thumb-item 혹은 그 내부 이미지인지 확인
+            const thumbItem = e.target.closest('.thumb-item');
+            
+            if (thumbItem) {
+                // data-src 속성에서 이미지 URL 가져오기
+                const newSrc = thumbItem.dataset.src;
+                
+                // 1. 큰 이미지 변경
+                if(mainImage) mainImage.src = newSrc;
+                
+                // 2. 다운로드 링크 변경
+                if(downloadLink) downloadLink.href = newSrc;
+                
+                // 3. 썸네일 활성 스타일 변경
+                const thumbnails = thumbnailContainer.querySelectorAll('.thumb-item');
+                thumbnails.forEach(thumb => thumb.classList.remove('active'));
+                thumbItem.classList.add('active');
+            }
+        });
+    }
+});
+</script>
+{% endblock %}

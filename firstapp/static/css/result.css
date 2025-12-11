@@ -1,0 +1,215 @@
+/* result.css - 최종 수정본 */
+
+/* 전체 레이아웃 */
+.results-container {
+    width: 100%;
+    min-height: calc(100vh - 80px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 40px;
+    box-sizing: border-box;
+    background-color: #e9e9e9;
+}
+
+/* 흰색 카드 */
+.results-card {
+    width: 100%;
+    max-width: 1200px; /* 전체 너비 제한 */
+    background-color: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+    padding: 40px;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.card-header h2 {
+    margin: 0 0 20px 0;
+    color: #333;
+    font-size: 1.5rem;
+    font-weight: 700;
+}
+
+/* 좌우 배치 래퍼 */
+.content-wrapper {
+    display: flex;
+    gap: 30px;
+    /* 높이 고정 제거: 내용물에 따라 늘어나게 함 */
+    align-items: flex-start; /* 상단 정렬 */
+}
+
+/* --- [왼쪽] 이미지 섹션 --- */
+.image-section {
+    flex: 1.5; /* 왼쪽 비율 1.5 */
+    /* 너비가 줄어들지 않도록 최소 너비 보장 */
+    min-width: 0; 
+    display: flex;
+    flex-direction: column;
+}
+
+/* 이미지가 들어가는 프레임 */
+.image-display-area {
+    position: relative;
+    width: 100%;
+    /* 높이를 고정하지 않고 비율에 맡김, 대신 최대 높이 설정 */
+    aspect-ratio: 1/1; /* 정사각형 비율 유지 (필요시 16/9 등 변경) */
+    max-height: 600px; 
+    
+    background-color: #333; /* 이미지 로딩 전 배경 */
+    border-radius: 10px;
+    overflow: hidden; /* ⭐ 이미지가 튀어나오면 잘라냄 */
+    border: 1px solid #ddd;
+    
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* 메인 이미지 */
+#main-image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain; /* ⭐ 이미지가 잘리지 않고 비율 유지하며 안에 쏙 들어감 */
+    display: block;
+}
+
+/* 썸네일 오버레이 */
+.thumbnail-overlay {
+    position: absolute;
+    bottom: 15px;
+    left: 15px;
+    display: flex;
+    gap: 10px;
+    z-index: 10;
+    
+    /* 썸네일이 많으면 가로 스크롤 */
+    max-width: calc(100% - 30px);
+    overflow-x: auto;
+    padding-bottom: 5px; /* 스크롤바 공간 */
+}
+
+.thumb-item {
+    width: 60px;
+    height: 60px;
+    flex-shrink: 0; /* 찌그러짐 방지 */
+    border-radius: 5px;
+    cursor: pointer;
+    border: 2px solid rgba(255,255,255,0.5);
+    overflow: hidden;
+    background-color: #000;
+}
+
+.thumb-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.thumb-item.active {
+    border-color: #4CAF50;
+    box-shadow: 0 0 5px rgba(0,0,0,0.5);
+}
+
+
+/* --- [오른쪽] 텍스트 섹션 --- */
+.text-section {
+    flex: 1; /* 오른쪽 비율 1 */
+    /* 최소 너비 확보 (글자가 세로로 눌리지 않게 함) */
+    min-width: 300px; 
+    display: flex;
+    flex-direction: column;
+}
+
+.text-section h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 1.1rem;
+    color: #333;
+}
+
+.text-box {
+    background-color: #f8f9fa;
+    border-radius: 10px;
+    padding: 20px;
+    
+    /* 높이를 이미지 영역과 비슷하게 맞추거나 내용만큼 늘림 */
+    min-height: 400px; 
+    max-height: 600px;
+    overflow-y: auto; /* 내용이 많으면 스크롤 */
+    border: 1px solid #eee;
+}
+
+.text-box p {
+    color: #555;
+    line-height: 1.6;
+    margin: 0 0 10px 0;
+    word-break: keep-all; /* 단어 단위 줄바꿈 */
+}
+
+
+/* --- [하단] 푸터 (버튼 영역) --- */
+.card-footer {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid #eee;
+    height: 60px;
+}
+
+/* 중앙 다운로드 버튼 */
+.center-btn-group {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.btn-download {
+    background-color: #1a4b6e;
+    color: white;
+    padding: 12px 50px;
+    border-radius: 30px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    transition: background-color 0.2s;
+    display: inline-block;
+    white-space: nowrap;
+}
+.btn-download:hover {
+    background-color: #143a55;
+}
+
+/* 우측 아이콘 버튼 그룹 */
+.right-icon-group {
+    position: absolute;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    gap: 10px;
+}
+
+.btn-icon {
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+    background-color: #f0f0f0;
+    color: #333;
+    border: none;
+    cursor: pointer;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-decoration: none;
+    font-size: 1.2rem;
+    transition: background-color 0.2s;
+}
+.btn-icon:hover {
+    background-color: #e0e0e0;
+}

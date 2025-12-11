@@ -1,0 +1,64 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}이미지 편집{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/editing.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div id="loadingOverlay">
+        <div class="spinner"></div>
+        <h2>AI가 이미지를 편집하고 있습니다...</h2>
+        <p>잠시만 기다려주세요.</p>
+    </div>
+
+    <div class="editing-container">
+        <div class="editing-card">
+            <div class="card-header">
+                <h2>AI 이미지 편집</h2>
+            </div>
+            
+            <form id="editForm" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <fieldset class="form-section">
+                    <legend>1. 편집할 이미지 (필수)</legend>
+                    <div class="input-wrapper">
+                        <input type="file" name="edit_image" id="edit_image" required>
+                    </div>
+                </fieldset>
+
+                <fieldset class="form-section">
+                    <legend>2. 편집 요청사항</legend>
+                    <div class="input-wrapper">
+                        <label for="edit_positive_prompt">어떻게 바꿀까요?</label>
+                        <input type="text" name="edit_positive_prompt" id="edit_positive_prompt" 
+                               placeholder="예: 배경을 해변으로 바꿔줘, 남자를 할아버지로 바꿔줘" required>
+                    </div>
+                </fieldset>
+
+                <div class="form-footer">
+                    <button type="submit" class="btn-submit">
+                        편집 실행
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // 폼 제출 시 로딩 화면 표시
+        document.getElementById('editForm').addEventListener('submit', function(e) {
+            const fileInput = document.getElementById('edit_image');
+            const promptInput = document.getElementById('edit_positive_prompt');
+            
+            // 간단한 유효성 검사 후 로딩 표시
+            if (fileInput.files.length > 0 && promptInput.value.trim() !== "") {
+                document.getElementById('loadingOverlay').style.display = 'flex';
+                this.querySelector('button[type="submit"]').disabled = true;
+            }
+        });
+    </script>
+{% endblock %}

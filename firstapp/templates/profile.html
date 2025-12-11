@@ -1,0 +1,71 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ user.username }}님의 프로필{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="user-controls-top" style="text-align: right; padding: 10px 0;">
+        <div class="button-group">
+            <a href="{% url 'delete_account' %}" class="btn btn-danger">내 계정 탈퇴하기</a>
+        </div>
+    </div>
+
+    {% if is_admin %}
+        
+        <div class="admin-panel-container">
+            <h1>관리자 페이지</h1>
+            <hr>
+            
+            <h3 class="admin-subtitle">모든 유저 목록</h3>
+            <div class="user-list-container">
+                {% for u in all_users %}
+                    <div class="user-item-card">
+                        <p>
+                            <strong>{{ u.username }}</strong> ({{ u.email }})
+                            <a href="{% url 'view_user' u.id %}" class="btn btn-small">
+                                이미지 목록 보기
+                            </a>
+                        </p>
+                    </div>
+                {% empty %}
+                    <p>자신 외에 다른 유저가 없습니다.</p>
+                {% endfor %}
+            </div>
+        </div>
+
+    {% else %}
+
+        <h1>{{ user.username }} 님이 생성한 이미지</h1>
+        <hr>
+        
+        <div class="image-gallery-container">
+            {% for image in images %}
+                <div class="image-item-card">
+                    <img src="{{ image.image_url }}" alt="생성 이미지" class="generated-image">
+                    <div class="image-details">
+                        <p><strong>제품:</strong> {{ image.product_type }}</p>
+                        <p><strong>테마:</strong> {{ image.theme }} / {{ image.mood }}</p>
+                        <p><strong>위치:</strong> {{ image.placement }}</p>
+                        {% if image.user_prompt %}
+                            <p><strong>키워드:</strong> {{ image.user_prompt }}</p>
+                        {% endif %}
+                        <p><strong>생성일:</strong> {{ image.created_at|date:"Y.m.d H:i" }}</p>
+
+                        <a href="{% url 'main' %}?product_type={{ image.product_type }}&theme={{ image.theme }}&mood={{ image.mood }}&placement={{ image.placement }}&prompt={{ image.user_prompt }}" 
+                            class="btn btn-retry-small" title="다시 만들기">
+                            <img src="{% static 'images/refresh_icon.png' %}" alt="새로고침">
+                        </a>
+                    </div>
+                </div>
+            {% empty %}
+                <p>생성한 이미지가 없습니다.</p>
+            {% endfor %}
+        </div>
+        
+    {% endif %}
+
+{% endblock %}

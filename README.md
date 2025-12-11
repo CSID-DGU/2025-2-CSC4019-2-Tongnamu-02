@@ -1,4 +1,4 @@
-# 2025-2-CSC4019-2-Tongnamu-02
+# Capstone Design Django Project
 
 이 프로젝트는 Django를 기반으로 한 웹 애플리케이션입니다.
 
@@ -55,7 +55,3 @@ python -m venv .venv
 .venv\Scripts\activate
 pip install django
 ```
-* 아이디 생성 시, 데이터베이스 오류가 생길 수 있습니다. 다음 명령으로 문제를 해결하세요:
-```bash
-python manage.py makemigrations
-python manage.py migrate
