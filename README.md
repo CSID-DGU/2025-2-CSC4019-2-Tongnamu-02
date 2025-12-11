@@ -28,7 +28,7 @@ python manage.py runserver localhost:8000
 ```bash
 set REPLICATE_API_TOKEN=여기에_당신의_API_토큰_입력
 ```
-
+혹은 test.py / .env에서 replicate api token을 입력하세요.
 📂 프로젝트 구조
 ```bash
 capstondesign/
